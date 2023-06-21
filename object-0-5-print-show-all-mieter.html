@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Titel</title>
+    <style></style>
+
+    <script>
+        'use strict';
+
+        // FUNKTIONEN
+        // Diese Funktion hat nur einen Parameter, und der wird destrukturiert
+        const create = ({
+            content = false,
+            className = false,
+            type = 'div',
+            parent = false,
+            atBeginning = false     // ob das neue Objekt an den Anfang des Eltern-Elements geschrieben werden soll
+        } = {}) => {    // das {} ist der default-Wert für das Destructuring
+            let el = document.createElement(type);
+            if (content) el.innerHTML = content;
+            if (className) el.className = className;
+            if (parent) {
+                if (atBeginning) {
+                    parent.prepend(el)
+                } else {
+                    parent.append(el)
+                }
+            }
+
+            return el;
+        }
+
+
+        const init = () => {
+
+            // An die Funktion wird nur ein Objekt übergeben. 
+            // Dadurch ist die Reihenfolge der Attribute irrelevant, was alle Probleme von vorher auflöst.
+            let container = create({
+                parent: document.body,
+                className: 'container',
+            });
+
+            create({
+                atBeginning: true,
+                type: 'h2',
+                parent: container,
+                content: 'Hallo Welt',
+            });
+
+            create({
+                parent: container,
+                content: 'Auch Inhalt',
+                type: 'p',
+            });
+
+            create();
+        }
+
+        const hollstr7 = {
+            strasse: 'Hollstrasse',
+            hausnummer: 7,
+            postleitzahl: 18273,
+            ort: 'Güstrow',
+            eigentuemer: "Herr Müller",
+
+            mieter: [
+                {
+                    // Vorname, Nachname, Wohnungsnummer, Kaltmiete
+                    vorname: 'Hans',
+                    nachname: 'Meier',
+                    wohnungsnummer: 1,
+                    kaltmiete: 500
+                },
+                {
+                    vorname: 'Peter',
+                    nachname: 'Schmidt',
+                    wohnungsnummer: 2,
+                    kaltmiete: 600
+                },
+                {
+                    vorname: 'Anna',
+                    nachname: 'Müller',
+                    wohnungsnummer: 3,
+                    kaltmiete: 550
+                },
+                {
+                    vorname: 'Maria',
+                    nachname: 'Schneider',
+                    wohnungsnummer: 4,
+                    kaltmiete: 700
+                }
+            ],
+
+            addressAndLandLord() {
+                return this.strasse + ' ' + this.hausnummer + ', ' + this.postleitzahl + ' ' + this.ort + ', ' + this.eigentuemer;
+            },
+
+            calcKaltmiete() {
+                return this.mieter.reduce((sum, mieter) => sum + mieter.kaltmiete, 0);
+            }
+        }
+
+        // INIT
+        document.addEventListener('DOMContentLoaded', init);
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+<!--
+// node .\object-0-4.js
+
+0.5
+Erstelle eine Methode, die die Daten aller Mieter im DOM ausgibt.
+
+0.4
+Errechne die gesamte Kaltmiete, die das Gebäude einbringt.
+
+0.3
+Gib den ganzen Namen des zweiten Mieters aus.
+
+Objekt 0.2
+Erweitere das Objekt durch ein Array.
+Dieses Array soll vier Mietparteien darstellen, jede in einem eigenen Objekt.
+Jedes Mietparteien-Objekt soll enthalten:
+
+Vorname
+Nachname
+Wohnungsnummer
+Kaltmiete
+
+Objekt 0.0
+
+Lege ein Objekt an, das für ein Gebäude die folgenden Informationen enthält:
+
+Strasse
+Hausnummer
+Postleitzahl
+Ort
+Eigentümer 
+
+Objekt 0.1
+Füge zu dem Objekt eine Methode hinzu, welche als Rückgabewert die gesamte Adresse als String liefert.
+Benutze diese Methode, um die gesamte Adresse auszugeben.
+
+-->
+
+</html>
